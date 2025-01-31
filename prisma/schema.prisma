@@ -1,0 +1,23 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Contoh model untuk pesan terjadwal
+model ScheduledMessage {
+  id            Int      @id @default(autoincrement())
+  phoneNumber   String
+  message       String   @db.Text
+  scheduledTime DateTime
+  status        String   @default("PENDING")
+  sentTime      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
